@@ -1,0 +1,22 @@
+# The agent is a versioned artifact, not a string literal buried in the app.
+#
+# Why: prompts and model settings are the highest-churn, highest-risk part of an
+# LLM system. Treating them as a reviewed, validated, version-bumped file means
+# a prompt change shows up in a diff, gets a version number, and can be rolled
+# back exactly like any other deploy artifact.
+#
+# `npm run provision` validates this file against a zod schema and records a
+# hash of it (agents/qualifier.lock.json). The app refuses to start against an
+# unvalidated or drifted version.
+name: summit-trails-qualifier
+version: 3
+model: claude-sonnet-5
+temperature: 0.2
+maxTokens: 1024
+# Path is relative to this file. The prompt lives in its own markdown file so it
+# is reviewable as prose rather than as escaped YAML.
+systemPrompt: prompts/qualifier.system.md
+description: >
+  Qualifies inbound trip inquiries for Summit Trails. Extracts budget, group
+  size, travel dates and fitness level, and proposes a qualification verdict.
+  The proposal is advisory: src/domain/qualification.ts decides.
