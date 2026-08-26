@@ -1,0 +1,30 @@
+{
+  "name": "lead-qualifier",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Reference architecture for AI lead qualification: the agent converses, deterministic code decides.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "provision": "tsx scripts/provision.ts",
+    "provision:check": "tsx scripts/provision.ts --check",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo": "tsx src/demo.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.121.0",
+    "yaml": "^2.6.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
