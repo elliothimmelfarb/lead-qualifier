@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # The agent artifact is validated in CI, so a prompt edit that was never
+      # provisioned fails the build rather than failing at runtime.
+      - run: npm run provision:check
+      - run: npm run typecheck
+      - run: npm test
